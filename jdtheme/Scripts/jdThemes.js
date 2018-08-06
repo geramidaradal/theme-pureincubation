@@ -80,13 +80,11 @@
         if ($(_sidebar).hasClass("sidebar-mobile-menu")) {
             $(_sidebar).removeClass("sidebar-large");
             $(_sidebar).removeClass("sidebar-small");
-            $(_sidebarSubmenus).css("left", _size_sidebar_medium);
-            $(_sidebarSubmenus).parent().find("div.nav-dropdown > a").css("text-align", "left");
+            sidebar_mobile();
         }
         else {
             $(_sidebar).addClass("sidebar-large");
         }
-
     });
 
     $("#linkUserProfile").click(function (e) {
@@ -107,7 +105,6 @@
 
 
     });
-
 
     $('a.scroll-to-top').click(function (e) {
         var $anchor = $(this);
@@ -177,47 +174,6 @@
         $('.tooltip').addClass('animated swing');
     })
 
-    var sidebar_medium = function () {
-        $(_sidebarSpan).css("width", _size_sidebar_medium);
-        $(_sidebarTitles).css("display", "block");
-        $(_sidebarTitles).css("font-size", "8px");
-        $(_sidebarTitles).css("line-height", "1.5em");
-        $(_sidebarTitles).css("text-align", "center");
-
-
-        $(_sidebarLink).css("width", _size_sidebar_medium);
-        $(_sidebarLink).css("padding-left", "2px");
-        $(_sidebarUL).css("width", _size_sidebar_medium);
-        //$(_sidebarUL).css("text-align", "center");
-
-
-        $(_sidebarList).css("width", _size_sidebar_medium);
-        $(_sidebarList).css("font-size", "25px");
-        $(_sidebarList).css("text-align", "center");
-
-        $(_sidebarSubmenus).css("left", _size_sidebar_medium);
-        $(_sidebarSubmenus).parent().find("div.nav-dropdown > a").css("text-align", "left");
-    }
-
-    var sidebar_large = function () {
-
-        $(_sidebarSpan).removeAttr('style')
-        $(_sidebarLink).removeAttr('style')
-
-        $(_sidebarUL).css("width", _size_sidebar_large);
-        $(_sidebarLink).css("padding-left", '20px');
-        $(_sidebarList).css("width", _size_sidebar_large);
-        $(_sidebarList).css("font-size", "16px");
-        $(_sidebarList).css("text-align", "left");
-
-        $(_sidebarSubmenus).css("left", _size_sidebar_large);
-
-        $(_togglebtn).removeClass("sidebar-toggle-btn-small");
-        $(_togglebtn).addClass("sidebar-toggle-btn-large");
-
-        $(_pagecontent).removeClass("page-content-medium");
-        $(_pagecontent).addClass("page-content-large");
-    };
 
     $(document).mouseup(function (e) {
         var _sidebar_container = $(_sidebarSubmenus);
@@ -232,11 +188,10 @@
         }
     });
 
-
     $(window).resize(function () {
+
         var _windowSize = $(window).width();
         _sidebarSubmenus.css("display", "none");
-
 
         if (_windowSize < 1100) {
             $(menu).addClass("dropdown-menu-right");
@@ -249,32 +204,22 @@
             $(_sidebarList).removeAttr('style');
             $(_sidebarUL).removeAttr('style');
             $(_sidebarLink).removeAttr('style');
-
-            if ($(_sidebar).hasClass("sidebar-small")) {
-                sidebar_medium();
-            }
-
-            if ($(_sidebar).hasClass("sidebar-mobile-menu")) {
-                $(_sidebar).removeClass("sidebar-mobile-menu");
-                $(_sidebar).addClass("sidebar-large");
-
-                sidebar_large();
-            }
-
-        }
-        else {
-            if ($(_sidebar).hasClass("sidebar-small")) {
-                sidebar_medium();
-            }
-
-            if ($(_sidebar).hasClass("sidebar-mobile-menu")) {
-                $(_sidebar).removeClass("sidebar-mobile-menu");
-                $(_sidebar).addClass("sidebar-large");
-
-                sidebar_large();
-            }
         }
 
+        if ($(_sidebar).hasClass("sidebar-small")) {
+            sidebar_medium();
+        }
+
+        if ($(_sidebar).hasClass("sidebar-large")) {
+            sidebar_dropdown_pos();
+        }
+
+        if ($(_sidebar).hasClass("sidebar-mobile-menu")) {
+            $(_sidebar).removeClass("sidebar-mobile-menu");
+            $(_sidebar).addClass("sidebar-large");
+
+            sidebar_large();
+        }
     });
 
     // Scroll to top button appear
@@ -290,4 +235,90 @@
             $('.scroll-to-top').fadeOut();
         }
     });
+
+    var sidebar_large = function () {
+
+        $(_sidebarSpan).removeAttr('style')
+        $(_sidebarLink).removeAttr('style')
+
+        $(_sidebarUL).css("width", _size_sidebar_large);
+        $(_sidebarLink).css("padding-left", '20px');
+        $(_sidebarList).css("width", _size_sidebar_large);
+        $(_sidebarList).css("font-size", "16px");
+        $(_sidebarList).css("text-align", "left");
+
+
+        $(_togglebtn).removeClass("sidebar-toggle-btn-small");
+        $(_togglebtn).addClass("sidebar-toggle-btn-large");
+
+        $(_pagecontent).removeClass("page-content-medium");
+        $(_pagecontent).addClass("page-content-large");
+
+
+        sidebar_dropdown_pos();
+    };
+
+    var sidebar_medium = function () {
+        $(_sidebarSpan).css("width", _size_sidebar_medium);
+        $(_sidebarTitles).css("display", "block");
+        $(_sidebarTitles).css("font-size", "8px");
+        $(_sidebarTitles).css("line-height", "1.5em");
+        $(_sidebarTitles).css("text-align", "center");
+
+
+        $(_sidebarLink).css("width", _size_sidebar_medium);
+        $(_sidebarLink).css("padding-left", "2px");
+        $(_sidebarUL).css("width", _size_sidebar_medium);
+        //$(_sidebarUL).css("text-align", "center");
+
+        $(_sidebarList).css("font-size", "25px");
+        $(_sidebarList).css("text-align", "center");
+
+        //$(_sidebarSubmenus).css("left", _size_sidebar_medium);
+        $(_sidebarSubmenus).parent().find("div.nav-dropdown > a").css("text-align", "left");
+
+        sidebar_dropdown_pos();
+    }
+
+    var sidebar_mobile = function () {
+        $(_sidebarSpan).css("width", _size_sidebar_medium);
+        $(_sidebarTitles).css("display", "block");
+        $(_sidebarTitles).css("font-size", "8px");
+        $(_sidebarTitles).css("line-height", "1.5em");
+        $(_sidebarTitles).css("text-align", "center");
+
+
+        $(_sidebarLink).css("width", _size_sidebar_medium);
+        $(_sidebarLink).css("padding-left", "2px");
+        $(_sidebarUL).css("width", _size_sidebar_medium);
+        //$(_sidebarUL).css("text-align", "center");
+
+        $(_sidebarList).css("font-size", "25px");
+        $(_sidebarList).css("text-align", "center");
+
+        $(_sidebarSubmenus).parent().find("div.nav-dropdown > a").css("text-align", "left");
+
+        sidebar_dropdown_pos();
+    }
+
+
+    var sidebar_dropdown_pos = function () {
+
+        //sidebar_dropdown_pos2();
+        setTimeout(sidebar_dropdown_pos2, 500);
+
+
+    };
+
+    var sidebar_dropdown_pos2 = function () {
+        var _sidebar_width = $("div.wrapper nav#sidebar").width();
+        var _large_sidebar = parseInt(_size_sidebar_large.substr(0, _size_sidebar_large.length - 2));
+
+        if (_sidebar_width >= (_large_sidebar - 20)) {
+            $(_sidebarSubmenus).css("left", _size_sidebar_large);
+        }
+        else {
+            $(_sidebarSubmenus).css("left", _size_sidebar_medium);
+        }
+    }
 })(jQuery);

@@ -217,7 +217,7 @@ div.wrapper .sidebar-toggle-btn div.bars span {
   display: block;
   margin-bottom: 2px;
   margin-top: 2px;
-  border: 1.5px solid #fff;
+  border: 2px solid #fff;
   width: 15px;
 }
 div.wrapper .sidebar-toggle-btn-large {
@@ -397,9 +397,6 @@ div.wrapper a.scroll-to-top:hover {
     text-align: center;
     font-size: 25px;
     width: 85px;
-  }
-  div.wrapper nav#sidebar ul li.navbar-list div.nav-dropdown {
-    left: 85px;
   }
   div.wrapper nav#sidebar ul li.navbar-list a {
     padding-left: 2px;
